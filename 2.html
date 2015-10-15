@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>仿google plus图片多张拖动排序</title>
+	<link type="text/css" href="1.css" rel="stylesheet" />
+	<script type="text/javascript" src='libs/seed-min.js'></script>
+</head>
+<body>
+	<div id='wrap' ms-controller='photo_sort'>
+		<ul class='justify' ms-mousemove='drag_move($event)'>
+			<li ms-repeat='photo_list' ms-attr-id='wrap_photo{{$index}}' ms-class-prev='$index==target_index-1&&x_index>0' ms-class-next='$index==target_index&&x_index<col_num'>
+				<a href="javascript:;" class="no_selected" ms-class-selected_icon='selected_photo.indexOf(el.src)>-1' ms-click='select($index)'></a>
+				<div class='photo_mask' ms-class-photo_maskon='drag_flag&&selected_photo.indexOf(el.src)>-1' 
+				ms-mousedown='start_drag($event,$index)'></div>
+				<div>
+					<div class="dummy"></div>
+					<p><img ms-attr-src="imgs/{{el.src}}"><i></i></p>
+				</div>
+				<div class='name'>{{el.src}}</div>
+			</li>
+			<li class='justify_fix'></li>
+		</ul>
+	</div>
+	<div id='drag_proxy' ms-controller='drag_proxy'>
+		<div class='dummy'></div>
+		<p>
+			<img ms-attr-src="imgs/{{src}}" ms-if="src!=''"><i></i>
+		</p>
+		<div class='drag_num_inner'>
+			<div class='drag_num'>{{select_num}}张照片</div>
+		</div>
+	</div>
+	<script type="text/javascript" src='drag_sort.js'></script>
+</body>
+</html>
